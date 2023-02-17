@@ -17,14 +17,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Test
-        run: mvn clean test
-      - name: Compile
-        run: mvn compile
       - name: Build JAR
         run: mvn package
       - name: Upload JAR
         uses: actions/upload-artifact@v3
         with:
           name: Bank-System
-          path: target/bank-system-1.jar
+          path: target/bank-system-1.0-SNAPSHOT.jar
