@@ -18,7 +18,7 @@ public class BankMenuTest {
     public void setUp() {
 
     bankService = Mockito.mock(BankService.class);
-    bankMenu = new BankMenu(bankService, bankAccount);
+
     bankAccount = Mockito.mock(BankAccount.class);
     }
 
@@ -40,9 +40,5 @@ public class BankMenuTest {
         bankService.withdraw(bankAccount, 100);
 
         Mockito.verify(bankService, Mockito.times(1)).withdraw(bankAccount, 100);
-    }
-
-
-    public void testGetBankAccount() {
     }
 }
