@@ -6,11 +6,11 @@ import com.bank.service.BankService;
 public class BankServiceImpl implements BankService {
     @Override
     public void withdraw(BankAccount bankAccount, double amount) {
-        if (amount != 0 && bankAccount.getBalance() >= amount) {
+        if (amount > 0 && bankAccount.getBalance() >= amount) {
             bankAccount.setBalance(bankAccount.getBalance() - amount);
             bankAccount.setPrevTrans(bankAccount.getPrevTrans() - amount);
-        } else if (amount < 0){
-            System.out.println("Not allowed to withdraw a negative amount");
+        } else if (amount <= 0){
+            System.out.println("Amount must be greater than 0");
         } else if (bankAccount.getBalance() < amount ) {
             System.out.println("Bank balance insufficient");
         }
@@ -18,10 +18,10 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public void deposit(BankAccount bankAccount, double amount) throws IllegalArgumentException {
-        if (amount != 0) {
+        if (amount > 0) {
             bankAccount.setBalance(bankAccount.getBalance() + amount);
             bankAccount.setPrevTrans(amount);
-        } else if (amount <= 0.0) {
+        } else if (amount <= 0) {
            throw new IllegalArgumentException("Amount must be greater than 0");
 
         }

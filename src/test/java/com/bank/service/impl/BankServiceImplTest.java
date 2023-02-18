@@ -18,7 +18,10 @@ public class BankServiceImplTest extends TestCase {
     public void setUp() {
         bankService = new BankServiceImpl();
         bankAccount = new BankAccount("Anton", "1");
+    }
 
+    public void currentBalance() {
+        System.out.println("Current balance " + bankAccount.getBalance());
     }
 
     @Test
@@ -27,6 +30,7 @@ public class BankServiceImplTest extends TestCase {
         bankAccount.setBalance(100);
 
         bankService.withdraw(bankAccount, 50);
+        currentBalance();
 
         assertEquals(50d, bankAccount.getBalance());
     }
@@ -37,6 +41,7 @@ public class BankServiceImplTest extends TestCase {
         bankAccount.setBalance(100);
 
         bankService.withdraw(bankAccount, 0);
+        currentBalance();
 
         assertEquals(100d, bankAccount.getBalance());
     }
@@ -47,18 +52,18 @@ public class BankServiceImplTest extends TestCase {
         bankAccount.setBalance(100);
 
         bankService.withdraw(bankAccount, 150);
-        System.out.println("Current balance " + bankAccount.getBalance());
+        currentBalance();
 
         assertEquals(100d, bankAccount.getBalance());
     }
 
     @Test
-    public void checkWithdrawWithNegativeAmount() {
+    public void checksWithdrawWithNegativeAmount() {
 
         bankAccount.setBalance(1000);
 
         bankService.withdraw(bankAccount, -500);
-        System.out.println("Current balance " + bankAccount.getBalance());
+        currentBalance();
 
         assertEquals(1000d, bankAccount.getBalance());
     }
@@ -68,6 +73,7 @@ public class BankServiceImplTest extends TestCase {
         bankAccount.setBalance(100);
 
         bankService.deposit(bankAccount, 100);
+        currentBalance();
 
         assertEquals(200d, bankAccount.getBalance());
     }
@@ -77,9 +83,21 @@ public class BankServiceImplTest extends TestCase {
         bankAccount.setBalance(100.0);
 
         try {
-            bankService.deposit(bankAccount, -100.0);
+            bankService.deposit(bankAccount, -500);
             fail("Expected an IllegalArgumentException should be thrown");
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
+            assertEquals("Amount must be greater than 0", e.getMessage());
+        }
+    }
+
+    @Test
+    public void checksDepositWith0() {
+        bankAccount.setBalance(100.0);
+
+        try {
+            bankService.deposit(bankAccount, 0);
+            fail("Expected an IllegalArgumentException should be thrown");
+        } catch (IllegalArgumentException e) {
             assertEquals("Amount must be greater than 0", e.getMessage());
         }
     }
