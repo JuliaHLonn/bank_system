@@ -9,16 +9,21 @@ public class BankServiceImpl implements BankService {
         if (amount != 0 && bankAccount.getBalance() >= amount) {
             bankAccount.setBalance(bankAccount.getBalance() - amount);
             bankAccount.setPrevTrans(bankAccount.getPrevTrans() - amount);
-        } else if (bankAccount.getBalance() < amount) {
+        } else if (amount < 0){
+            System.out.println("Not allowed to withdraw a negative amount");
+        } else if (bankAccount.getBalance() < amount ) {
             System.out.println("Bank balance insufficient");
         }
     }
 
     @Override
-    public void deposit(BankAccount bankAccount, double amount) {
+    public void deposit(BankAccount bankAccount, double amount) throws IllegalArgumentException {
         if (amount != 0) {
             bankAccount.setBalance(bankAccount.getBalance() + amount);
             bankAccount.setPrevTrans(amount);
+        } else if (amount <= 0.0) {
+           throw new IllegalArgumentException("Amount must be greater than 0");
+
         }
     }
 }
