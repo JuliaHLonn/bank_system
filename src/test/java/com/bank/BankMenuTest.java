@@ -8,6 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
+import static junit.framework.Assert.fail;
+import static org.mockito.Mockito.doThrow;
+
 @ExtendWith(MockitoExtension.class)
 public class BankMenuTest {
     BankService bankService;
@@ -17,13 +21,13 @@ public class BankMenuTest {
     @BeforeEach
     public void setUp() {
 
-    bankService = Mockito.mock(BankService.class);
-
-    bankAccount = Mockito.mock(BankAccount.class);
+        bankService = Mockito.mock(BankService.class);
+        bankAccount = new BankAccount("Alice", "2");
+      //  bankMenu = new BankMenu(bankService, bankAccount);
     }
 
     @Test
-    public void verifiesThatDepositWasCalledExpectedAmountOfTimes() {
+    public void verifiesThatDepositWasCalledExpectedNumberOfTimes() {
 
         bankAccount.setBalance(100);
 
@@ -33,12 +37,27 @@ public class BankMenuTest {
     }
 
     @Test
-    public void verifiesThatWithdrawWasCalledExpectedAmountOfTimes() {
+    public void verifiesThatWithdrawWasCalledExpectedNumberOfTimes() {
 
         bankAccount.setBalance(100);
 
         bankService.withdraw(bankAccount, 100);
 
         Mockito.verify(bankService, Mockito.times(1)).withdraw(bankAccount, 100);
+    }
+
+    @Test
+    public void runTimeException() {
+        bankMenu = new BankMenu(bankService, bankAccount);
+        bankAccount.setBalance(100);
+
+        doThrow(new RuntimeException()).when(bankService).withdraw(bankAccount, 50);
+
+        try {
+            bankMenu.menu();
+        } catch (Exception e) {
+            fail();
+        }
+
     }
 }

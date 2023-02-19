@@ -35,13 +35,13 @@ public class BankMenu {
             switch (option) {
                 case 'a' -> {
                     System.out.println("......................");
-                    System.out.println("Balance =" + bankAccount.getBalance());
+                    System.out.println("Balance = w" + bankAccount.getBalance());
                     System.out.println("......................");
                     System.out.println("\n");
                 }
                 case 'b' -> {
                     System.out.println("......................");
-                    System.out.println("Enter a amount to deposit :");
+                    System.out.println("Enter a amount to deposit:");
                     System.out.println("......................");
                     double amount = sc.nextDouble();
                     bankService.deposit(bankAccount, amount);
@@ -49,10 +49,14 @@ public class BankMenu {
                 }
                 case 'c' -> {
                     System.out.println("......................");
-                    System.out.println("Enter a amount to Withdraw :");
+                    System.out.println("Enter a amount to Withdraw:");
                     System.out.println("......................");
                     double amountWithdraw = sc.nextDouble();
-                    bankService.withdraw(bankAccount, amountWithdraw);
+                    try {
+                        bankService.withdraw(bankAccount, amountWithdraw);
+                    } catch (RuntimeException e) {
+                        System.out.println("Error" + e);
+                    }
                     System.out.println("\n");
                 }
                 case 'd' -> {
