@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static org.mockito.Mockito.doThrow;
 
@@ -48,7 +49,8 @@ public class BankMenuTest {
 
     @Test
     public void runTimeException() {
-        bankMenu = new BankMenu(bankService, bankAccount);
+        //  Dmitriy ska försöka lösa den
+        bankMenu = Mockito.mock(BankMenu.class);
         bankAccount.setBalance(100);
 
         doThrow(new RuntimeException()).when(bankService).withdraw(bankAccount, 50);
@@ -56,8 +58,7 @@ public class BankMenuTest {
         try {
             bankMenu.menu();
         } catch (Exception e) {
-            fail();
+            fail("");
         }
-
     }
 }

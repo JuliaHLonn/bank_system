@@ -54,7 +54,7 @@ public class BankMenu {
                     double amountWithdraw = sc.nextDouble();
                     try {
                         bankService.withdraw(bankAccount, amountWithdraw);
-                    } catch (RuntimeException e) {
+                    } catch (Exception e) {
                         System.out.println("Error" + e);
                     }
                     System.out.println("\n");
