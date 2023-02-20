@@ -24,14 +24,14 @@ public class BankMenuTest {
 
         bankService = Mockito.mock(BankService.class);
         bankAccount = new BankAccount("Alice", "2");
-      //  bankMenu = new BankMenu(bankService, bankAccount);
+        bankMenu = new BankMenu(bankService, bankAccount);
     }
 
     @Test
     public void verifiesThatDepositWasCalledExpectedNumberOfTimes() {
 
         bankAccount.setBalance(100);
-
+        
         bankService.deposit(bankAccount, 100);
 
         Mockito.verify(bankService, Mockito.times(1)).deposit(bankAccount, 100);
