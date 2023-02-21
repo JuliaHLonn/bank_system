@@ -35,8 +35,7 @@ public class BankServiceImplTest {
 
 
     @Test
-    public void checksIfWithdrawIsSuccessfulWith0Amount() {
-
+    public void withdrawShouldFailWith0Amount() {
         bankAccount.setBalance(100);
         bankServiceImpl.withdraw(bankAccount, 0);
 
@@ -44,8 +43,7 @@ public class BankServiceImplTest {
     }
 
     @Test
-    public void checksWithdrawWithNegativeAmount() {
-
+    public void withdrawShouldFailWithNegativeAmount() {
         bankAccount.setBalance(1000);
         bankServiceImpl.withdraw(bankAccount, -500);
 
