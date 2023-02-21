@@ -23,5 +23,8 @@ public class BankServiceImpl implements BankService {
             bankAccount.setBalance(bankAccount.getBalance() + amount);
             bankAccount.setPrevTrans(amount);
         }
+        else {
+            System.out.println("The amount to deposit must be higher then 0");
+        }
     }
 }

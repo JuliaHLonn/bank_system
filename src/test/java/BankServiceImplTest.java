@@ -57,7 +57,7 @@ public class BankServiceImplTest {
     }
 
     @Test
-    public void depositShouldFailWithAmountLessThenZero() {
+    public void depositShouldFailWithAmountLessThenZeroTestShouldBeSuccessful() {
         bankServiceImpl.deposit(bankAccount, -100);
         assertEquals(100, bankAccount.getBalance());
     }
