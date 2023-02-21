@@ -2,19 +2,27 @@ package com.bank;
 
 import com.bank.service.BankService;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class BankMenu {
     private BankService bankService;
     private BankAccount bankAccount;
+    private Scanner sc;
 
     public BankMenu(BankService bankService, BankAccount bankAccount) {
         this.bankService = bankService;
         this.bankAccount = bankAccount;
     }
 
+    public BankMenu(BankService bankService, BankAccount bankAccount, InputStream inputStream) {
+        this.bankService = bankService;
+        this.bankAccount = bankAccount;
+        this.sc = new Scanner(inputStream);
+    }
 
-    void menu() {
+
+    public void menu() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome " + bankAccount.getCustomerName());
         System.out.println("Your ID:" + bankAccount.getCustomerId());
@@ -51,8 +59,14 @@ public class BankMenu {
                     System.out.println("......................");
                     System.out.println("Enter a amount to Withdraw :");
                     System.out.println("......................");
-                    double amountWithdraw = sc.nextDouble();
-                    bankService.withdraw(bankAccount, amountWithdraw);
+
+                    try {
+                        double amountWithdraw = sc.nextDouble();
+                        bankService.withdraw(bankAccount, amountWithdraw);
+                    } catch (RuntimeException ignore) {
+                        System.out.println("Something went wrong..");
+                    }
+
                     System.out.println("\n");
                 }
                 case 'd' -> {
