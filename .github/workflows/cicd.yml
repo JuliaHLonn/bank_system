@@ -18,7 +18,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Checkstyle
-        uses: dbelyaev/action-checkstyle@v0.5.1
         if: github.event_name == 'pull_request'
         run: mvn checkstyle:checkstyle
         with:
