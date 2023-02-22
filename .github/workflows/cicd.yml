@@ -17,13 +17,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Checkstyle
-        uses: dbelyaev/action-checkstyle@v0.5.1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          level: warning
-        if: github.event_name == 'pull_request'
       - name: Build JAR
         run: mvn package
       - name: Upload JAR
@@ -31,4 +24,12 @@ jobs:
         with:
           name: Bank-System
           path: target/bank-system-1.0-SNAPSHOT.jar
+      - name: Checkstyle
+        if: github.event_name == 'pull_request'
+        uses: dbelyaev/action-checkstyle@v0.5.1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+
 
